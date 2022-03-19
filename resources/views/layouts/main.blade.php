@@ -57,14 +57,10 @@
                     <i class="fas fa-fw fa-cog"></i>
                     <span>System Management</span>
                 </a>
-                <div id="collapseSystem" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="buttons.html">Country</a>
                         <a class="collapse-item" href="cards.html">State</a>
                         <a class="collapse-item" href="cards.html">Department</a>
                         <a class="collapse-item" href="cards.html">City</a>
-                    </div>
-                </div>
             </li>
 
             <hr class="sidebar-divider">
@@ -76,13 +72,9 @@
                     <i class="fas fa-fw fa-cog"></i>
                     <span>User Management</span>
                 </a>
-                <div id="collapseUser" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="buttons.html">User </a>
-                        <a class="collapse-item" href="cards.html">Role</a>
-                        <a class="collapse-item" href="cards.html">Permission</a>
-                    </div>
-                </div>
+                    <a class="collapse-item" href="{{route('users.index')}}">User </a>
+                    <a class="collapse-item" href="cards.html">Role</a>
+                    <a class="collapse-item" href="cards.html">Permission</a>     
             </li>
 
             <!-- Nav Item - Utilities Collapse Menu -->
@@ -92,16 +84,10 @@
                     <i class="fas fa-fw fa-wrench"></i>
                     <span>User Management</span>
                 </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Utilities:</h6>
-                        <a class="collapse-item" href="utilities-color.html">Colors</a>
-                        <a class="collapse-item" href="utilities-border.html">Borders</a>
-                        <a class="collapse-item" href="utilities-animation.html">Animations</a>
-                        <a class="collapse-item" href="utilities-other.html">Other</a>
-                    </div>
-                </div>
+                    <a class="collapse-item" href="utilities-color.html">Colors</a>
+                    <a class="collapse-item" href="utilities-border.html">Borders</a>
+                    <a class="collapse-item" href="utilities-animation.html">Animations</a>
+                    <a class="collapse-item" href="utilities-other.html">Other</a>
             </li>
 
 
@@ -128,20 +114,21 @@
                        
                     
                         <!-- Nav Item - User Information -->
-                        <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{Auth::user()->username}}</span>
-                                <img class="img-profile rounded-circle"
-                                    src="img/undraw_profile.svg">
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                {{ Auth::user()->username }}
                             </a>
-                            <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
+
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                   onclick="event.preventDefault();
+                                                 document.getElementById('logout-form').submit();">
+                                    {{ __('Logout') }}
                                 </a>
+
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
                             </div>
                         </li>
 
@@ -153,14 +140,9 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                    <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-                       
-                    </div>
-                    <div class="row">
+                   
                         @yield('content')
-                    </div>
+                  
                   
                 </div>
                 <!-- /.container-fluid -->
@@ -212,6 +194,7 @@
     <!-- Bootstrap core JavaScript-->
     <script src="{{ mix('js/app.js') }}"></script>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <!-- Custom scripts for all pages-->
     <script src="{{ asset('js/sb-admin.min.js') }}"></script>
