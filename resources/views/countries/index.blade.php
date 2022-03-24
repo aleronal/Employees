@@ -17,10 +17,10 @@
             </div>
 
             <div class="card-header">
-                <a class="float-right" href="{{ route('users.create') }}">Create</a>
+                <a class="float-right" href="{{ route('country.create') }}">Create</a>
                 <div class="row">
                     <div class="col">
-                    <form method="GET" action="{{route('users.index')}}">
+                    <form method="GET" action="{{route('country.index')}}">
                             <div class="form-row align-items-center">
                               <div class="col-auto">
                                 <label class="sr-only" for="inlineFormInput">Name</label>
@@ -39,19 +39,19 @@
                     <thead>
                     <tr>
                         <th scope="col">#Id</th>
-                        <th scope="col">Username</th>
-                        <th scope="col">Email</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Country Code</th>
                         <th scope="col">Manage</th>
                     </tr>
                     </thead>
                     <tbody>
-                        @foreach ($users as $user)
+                        @foreach ($countries as $country)
                     <tr>
-                    <th scope="row">{{$user->id}}</th>
-                            <td>{{$user->username}}</td>
-                            <td>{{$user->email}}</td>
+                    <th scope="row">{{$country->id}}</th>
+                            <td>{{$country->name}}</td>
+                            <td>{{$country->country_code}}</td>
                             <td>
-                                <a class='btn btn-sm btn-warning' href="{{route('users.edit', $user->id)}}">Edit</a>
+                                <a class='btn btn-sm btn-warning' href="{{route('country.edit', $country->id)}}">Edit</a>
                              
                             </td>
                         @endforeach

@@ -17,9 +17,12 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $users = User::all();
+        if($request->has('search')){
+            $users = User::where('username', 'like', "%{$request->search}")->orWhere('email', 'like', "%{$request->search}%")->get();
+        }
         return view('users.index', compact('users'));
     }
 
@@ -66,7 +69,7 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+    * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit(User $user)

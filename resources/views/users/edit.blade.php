@@ -6,6 +6,10 @@
         <h1 class="h3 mb-0 text-gray-800">Edit Users</h1>
     </div>
 
+    @if (session()->has('message'))
+        <div class="alert alert-danger">{{ session('message') }}</div>
+    @endif
+
     <div class="row">
         <div class="card mx-auto">
             <div class="card-header">
@@ -80,11 +84,59 @@
                     </div>
                 </form>
             </div>
+            
         </div>
-    <form method="POST" action="{{route('users.destroy', $user->id)}}">
-        @csrf
-        @method('DELETE')
-        <button class="btn btn-danger">Delete {{$user->username}}</button>
-    </form>
+        <div class="">
+                <div class="card">
+                    <div class="card-header">{{ __('Change Password') }}</div>
+    
+                    <div class="card-body">
+                        <form method="POST" action="{{ route('users.change.password', $user->id) }}">
+                            @csrf
+    
+                            <div class="row mb-3">
+                                <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
+    
+                                <div class="col-md-6">
+                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+    
+                                    @error('password')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+    
+                            <div class="row mb-3">
+                                <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
+    
+                                <div class="col-md-6">
+                                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                </div>
+                            </div>
+    
+                            <div class="row mb-0">
+                                <div class="col-md-6 offset-md-4">
+                                    <button type="submit" class="btn btn-primary">
+                                        {{ __('Update Password') }}
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+    
     </div>
+    <div class="container m-3">
+        <div class="col-md-12">
+            <form method="POST" action="{{route('users.destroy', $user->id)}}">
+                @csrf
+                @method('DELETE')
+                <button class="btn btn-danger">Delete {{$user->username}}</button>
+            </form>
+        </div>
+    </div>
+   
 @endsection
