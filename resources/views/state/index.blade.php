@@ -49,7 +49,7 @@
                     <tr>
                     <th scope="row">{{$state->id}}</th>
                             <td>{{$state->name}}</td>
-                            <td>{{$state->country_code}}</td>
+                            <td>{{$state->country->name}}</td>
                             <td>
                                 <a class='btn btn-sm btn-warning' href="{{route('state.edit', $state->id)}}">Edit</a>
                              
