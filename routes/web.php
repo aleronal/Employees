@@ -24,7 +24,12 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::resource('users', UserController::class);
+Route::middleware(['admin'])->group(function () {
+    
+    Route::resource('users', UserController::class);
+    
+});
+
 
 Route::post('users/{user}/change-password',[ChangePasswordController::class, 'change_password'])->name('users.change.password');
 
