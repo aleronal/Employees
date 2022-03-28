@@ -58,7 +58,7 @@
                     <span>System Management</span>
                 </a>
                         <a class="collapse-item" href="{{route('country.index')}}">Country</a>
-                        <a class="collapse-item" href="cards.html">State</a>
+                        <a class="collapse-item" href="{{route('state.index')}}">State</a>
                         <a class="collapse-item" href="cards.html">Department</a>
                         <a class="collapse-item" href="cards.html">City</a>
             </li>

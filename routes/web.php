@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Backend\ChangePasswordController;
 use App\Http\Controllers\Backend\CountryController;
+use App\Http\Controllers\Backend\StateController;
 use App\Http\Controllers\Backend\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -34,4 +35,5 @@ Route::middleware(['admin'])->group(function () {
 Route::post('users/{user}/change-password',[ChangePasswordController::class, 'change_password'])->name('users.change.password');
 
 Route::resource('country', CountryController::class);
+Route::resource('state', StateController::class);
 
