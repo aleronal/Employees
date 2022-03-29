@@ -18,12 +18,12 @@ class CountryController extends Controller
         }
 
 
-        return view('countries.index', compact('countries'));
+        return view('country.index', compact('countries'));
     }
 
     public function create()
     {
-        return view('countries.create');
+        return view('country.create');
     }
 
     public function store(CountryStoreRequest $request)
@@ -35,7 +35,7 @@ class CountryController extends Controller
 
     public function edit(Country $country)
     {
-        return view('countries.edit', compact('country'));
+        return view('country.edit', compact('country'));
     }
 
     public function update(CountryStoreRequest $request, Country $country)

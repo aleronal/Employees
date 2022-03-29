@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">State</h1>
+        <h1 class="h3 mb-0 text-gray-800">City</h1>
     </div>
 
     <div class="row">
@@ -17,10 +17,10 @@
             </div>
 
             <div class="card-header">
-                <a class="float-right" href="{{ route('state.create') }}">Create</a>
+                <a class="float-right" href="{{ route('city.create') }}">Create</a>
                 <div class="row">
                     <div class="col">
-                    <form method="GET" action="{{route('state.index')}}">
+                    <form method="GET" action="{{route('city.index')}}">
                             <div class="form-row align-items-center">
                               <div class="col-auto">
                                 <label class="sr-only" for="inlineFormInput">Name</label>
@@ -40,16 +40,16 @@
                     <tr>
                         <th scope="col">#Id</th>
                         <th scope="col">Name</th>
-                        <th scope="col">Country Name</th>
+                        <th scope="col">State Name</th>
                         <th scope="col">Manage</th>
                     </tr>
                     </thead>
                     <tbody>
-                        @foreach ($states as $state)
+                        @foreach ($cities as $city)
                     <tr>
-                    <th scope="row">{{$state->id}}</th>
-                            <td>{{$state->name}}</td>
-                            <td>{{$state->country->name}}</td>
+                    <th scope="row">{{$city->id}}</th>
+                            <td>{{$city->name}}</td>
+                            <td>{{$city->state->name}}</td>
                             <td>
                                 <a class='btn btn-sm btn-warning' href="{{route('state.edit', $state->id)}}">Edit</a>
                              
