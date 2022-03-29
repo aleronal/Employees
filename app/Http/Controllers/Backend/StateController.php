@@ -86,8 +86,9 @@ class StateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(State $state)
     {
-        //
+        $state->delete();
+        return redirect()->route('state.index')->with('message', 'State Deleted Succesfully');
     }
 }

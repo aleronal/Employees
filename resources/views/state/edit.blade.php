@@ -54,10 +54,19 @@
                     <div class="row mb-0">
                         <div class="col-md-6 offset-md-4">
                             <button type="submit" class="btn btn-primary">
-                                {{ __('Store State') }}
+                                {{ __('Update State') }}
                             </button>
                         </div>
                     </div>
+                </form>
+            </div>
+        </div>
+        <div class="container m-3">
+            <div class="col-md-12">
+                <form method="POST" action="{{route('state.destroy', $state->id)}}">
+                    @csrf
+                    @method('DELETE')
+                    <button class="btn btn-danger">Delete {{$state->name}}</button>
                 </form>
             </div>
         </div>
