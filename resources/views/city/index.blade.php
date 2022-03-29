@@ -51,7 +51,7 @@
                             <td>{{$city->name}}</td>
                             <td>{{$city->state->name}}</td>
                             <td>
-                                <a class='btn btn-sm btn-warning' href="{{route('state.edit', $state->id)}}">Edit</a>
+                                <a class='btn btn-sm btn-warning' href="{{route('city.edit', $city->id)}}">Edit</a>
                              
                             </td>
                         @endforeach

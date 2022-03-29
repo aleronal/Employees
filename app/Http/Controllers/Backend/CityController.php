@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Models\City;
+use App\Models\State;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CityStoreRequest;
 
 class CityController extends Controller
 {
@@ -13,9 +15,12 @@ class CityController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $cities = City::all();
+        if($request->has('search')){
+            $cities = City::where('name', 'like', "%{$request->search}%")->get();
+        }
         return view('city.index',compact('cities'));
     }
 
@@ -26,7 +31,8 @@ class CityController extends Controller
      */
     public function create()
     {
-        //
+        $states = State::all();
+        return view('city.create', compact('states'));
     }
 
     /**
@@ -35,9 +41,11 @@ class CityController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CityStoreRequest $request)
     {
-        //
+        City::create($request->validated());
+
+        return redirect()->route('city.index')->with('message', 'city created Succesfully');
     }
 
     /**
@@ -57,9 +65,10 @@ class CityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(City $city)
     {
-        //
+        $states = State::all();
+        return view('city.edit' ,compact('city','states'));
     }
 
     /**
@@ -69,9 +78,13 @@ class CityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CityStoreRequest $request,City $city)
     {
-        //
+        $city->update([
+            'state_id' => $request->state_id,
+            'name' => $request->name
+        ]);
+        return redirect()->route('city.index')->with('message', 'City Updated Succesfully');
     }
 
     /**
@@ -80,8 +93,9 @@ class CityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(City $city)
     {
-        //
+        $city->delete();
+        return redirect()->route('city.index')->with('message', 'City Deleted Succesfully');
     }
 }
