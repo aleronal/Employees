@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Models\State;
+use App\Models\Country;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StateStoreRequest;
+use PHPUnit\Framework\Constraint\Count;
 
 class StateController extends Controller
 {
@@ -26,7 +29,10 @@ class StateController extends Controller
      */
     public function create()
     {
-        return view('state.create');
+
+        $countries = Country::all();
+
+        return view('state.create', compact('countries'));
 
     }
 
@@ -36,21 +42,13 @@ class StateController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StateStoreRequest $request)
     {
-        //
+        State::create($request->validated());
+
+        return redirect()->route('state.index')->with('message', 'State Created Succesfully');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -60,7 +58,8 @@ class StateController extends Controller
      */
     public function edit(State $state)
     {
-        return view('state.edit',compact('state'));
+        $countries = Country::all();
+        return view('state.edit',compact('countries','state'));
 
     }
 
@@ -71,9 +70,14 @@ class StateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StateStoreRequest $request,State $state)
     {
-        //
+        $state->update([
+            'country_id' => $request->country_id,
+            'name' => $request->name
+        ]);
+
+        return redirect()->route('state.index')->with('message', 'State Updated Succesfully');
     }
 
     /**

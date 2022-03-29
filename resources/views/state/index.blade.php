@@ -40,7 +40,7 @@
                     <tr>
                         <th scope="col">#Id</th>
                         <th scope="col">Name</th>
-                        <th scope="col">Country Id</th>
+                        <th scope="col">Country Name</th>
                         <th scope="col">Manage</th>
                     </tr>
                     </thead>
