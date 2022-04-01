@@ -5384,10 +5384,35 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
     Datepicker: vuejs_datepicker__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  data: function data() {
+    return {
+      countries: [],
+      states: [],
+      departments: [],
+      cities: []
+    };
+  },
+  created: function created() {
+    this.getCountries();
+  },
+  methods: {
+    getCountries: function getCountries() {
+      var _this = this;
+
+      axios.get('/api/employees/countries').then(function (res) {
+        _this.countries = res.data;
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    }
   }
 });
 
@@ -28706,6 +28731,44 @@ var render = function () {
             _vm._v(" "),
             _vm._m(5),
             _vm._v(" "),
+            _c("div", { staticClass: "form-group row mb-3" }, [
+              _c(
+                "label",
+                {
+                  staticClass: "col-md-4 col-form-label text-md-end",
+                  attrs: { for: "country" },
+                },
+                [_vm._v("Country")]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-6" }, [
+                _c(
+                  "select",
+                  {
+                    staticClass: "form-control",
+                    attrs: {
+                      name: "country",
+                      "aria-label": "Default select example",
+                    },
+                  },
+                  [
+                    _c("option", { attrs: { selected: "", disabled: "" } }, [
+                      _vm._v(" Select Country "),
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(_vm.countries, function (country) {
+                      return _c(
+                        "option",
+                        { key: country.id, domProps: { value: country.id } },
+                        [_vm._v(_vm._s(country.name))]
+                      )
+                    }),
+                  ],
+                  2
+                ),
+              ]),
+            ]),
+            _vm._v(" "),
             _vm._m(6),
             _vm._v(" "),
             _vm._m(7),
@@ -28715,8 +28778,6 @@ var render = function () {
             _vm._m(9),
             _vm._v(" "),
             _vm._m(10),
-            _vm._v(" "),
-            _vm._m(11),
           ]),
         ]),
       ]),
@@ -28865,36 +28926,6 @@ var staticRenderFns = [
           staticClass: "form-control",
           attrs: { id: "address", type: "text", name: "address", required: "" },
         }),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group row mb-3" }, [
-      _c(
-        "label",
-        {
-          staticClass: "col-md-4 col-form-label text-md-end",
-          attrs: { for: "country" },
-        },
-        [_vm._v("Country")]
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-6" }, [
-        _c(
-          "select",
-          {
-            staticClass: "form-control",
-            attrs: { name: "country", "aria-label": "Default select example" },
-          },
-          [
-            _c("option", { attrs: { selected: "", disabled: "" } }, [
-              _vm._v(" Select Country "),
-            ]),
-          ]
-        ),
       ]),
     ])
   },

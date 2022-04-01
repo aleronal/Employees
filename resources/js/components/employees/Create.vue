@@ -62,6 +62,9 @@
                         <div class="col-md-6">
                             <select name="country" class="form-control" aria-label="Default select example">
                                 <option selected disabled> Select Country </option>  
+                        
+                                    <option :value="country.id" v-for="country in countries" :key="country.id">{{country.name}}</option>  
+                                  
                               </select>
                         </div>
                     </div>
@@ -120,7 +123,37 @@ import Datepicker from 'vuejs-datepicker';
 export default {
     components:{
         Datepicker
-    }
+    },
+    data(){
+        return {
+            countries: [],
+            states: [],
+            departments: [],
+            cities: []
+        }
+
+    },
+
+    created() {
+        this.getCountries();
+    },
+
+    methods: {
+        getCountries(){
+            axios.get('/api/employees/countries')
+            .then(res => {
+                this.countries = res.data;
+            })
+            .catch(err => {
+                console.log(err);
+            })
+
+        }
+    },
+
+    
+
+    
 
 }
 </script>
