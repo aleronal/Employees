@@ -5387,6 +5387,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -5397,18 +5415,58 @@ __webpack_require__.r(__webpack_exports__);
       countries: [],
       states: [],
       departments: [],
-      cities: []
+      cities: [],
+      form: {
+        first_name: "",
+        last_name: "",
+        middle_name: "",
+        address: "",
+        country_id: "",
+        state_id: "",
+        department_id: "",
+        city_id: "",
+        zip_code: "",
+        birth_date: "",
+        date_hired: ""
+      }
     };
   },
   created: function created() {
-    this.getCountries();
+    this.getCountries(), this.getdepartments();
   },
   methods: {
     getCountries: function getCountries() {
       var _this = this;
 
-      axios.get('/api/employees/countries').then(function (res) {
+      axios.get("/api/employees/countries").then(function (res) {
         _this.countries = res.data;
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    getStates: function getStates() {
+      var _this2 = this;
+
+      axios.get("/api/employees/" + this.form.country_id + "/states").then(function (res) {
+        _this2.states = res.data;
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    getCities: function getCities() {
+      var _this3 = this;
+
+      axios.get("/api/employees/" + this.form.state_id + "/cities").then(function (res) {
+        _this3.cities = res.data;
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    getdepartments: function getdepartments() {
+      var _this4 = this;
+
+      axios.get("/api/employees/departments").then(function (res) {
+        _this4.departments = res.data;
       })["catch"](function (err) {
         console.log(err);
       });
@@ -10655,7 +10713,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.card[data-v-41906a31]{\n    width: 600px;\n}\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.card[data-v-41906a31] {\n  width: 600px;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -28684,7 +28742,7 @@ var render = function () {
           "div",
           { staticClass: "card-header" },
           [
-            _vm._v("\n              Create Employees\n              "),
+            _vm._v("\n        Create Employees\n        "),
             _c(
               "router-link",
               {
@@ -28722,7 +28780,10 @@ var render = function () {
                 { staticClass: "col-md-6" },
                 [
                   _c("datepicker", {
-                    attrs: { "input-class": "form-control", name: "" },
+                    attrs: {
+                      "input-class": "form-control",
+                      name: "date_hired",
+                    },
                   }),
                 ],
                 1
@@ -28745,15 +28806,45 @@ var render = function () {
                 _c(
                   "select",
                   {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.country_id,
+                        expression: "form.country_id",
+                      },
+                    ],
                     staticClass: "form-control",
                     attrs: {
                       name: "country",
                       "aria-label": "Default select example",
                     },
+                    on: {
+                      change: [
+                        function ($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function (o) {
+                              return o.selected
+                            })
+                            .map(function (o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.$set(
+                            _vm.form,
+                            "country_id",
+                            $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          )
+                        },
+                        _vm.getStates,
+                      ],
+                    },
                   },
                   [
                     _c("option", { attrs: { selected: "", disabled: "" } }, [
-                      _vm._v(" Select Country "),
+                      _vm._v("Select Country"),
                     ]),
                     _vm._v(" "),
                     _vm._l(_vm.countries, function (country) {
@@ -28769,15 +28860,210 @@ var render = function () {
               ]),
             ]),
             _vm._v(" "),
+            _c("div", { staticClass: "form-group row mb-3" }, [
+              _c(
+                "label",
+                {
+                  staticClass: "col-md-4 col-form-label text-md-end",
+                  attrs: { for: "state" },
+                },
+                [_vm._v("State")]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-6" }, [
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.state_id,
+                        expression: "form.state_id",
+                      },
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      name: "state",
+                      "aria-label": "Default select example",
+                    },
+                    on: {
+                      change: [
+                        function ($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function (o) {
+                              return o.selected
+                            })
+                            .map(function (o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.$set(
+                            _vm.form,
+                            "state_id",
+                            $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          )
+                        },
+                        _vm.getCities,
+                      ],
+                    },
+                  },
+                  [
+                    _c("option", { attrs: { selected: "", disabled: "" } }, [
+                      _vm._v("Select State"),
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(_vm.states, function (state) {
+                      return _c(
+                        "option",
+                        { key: state.id, domProps: { value: state.id } },
+                        [_vm._v(_vm._s(state.name))]
+                      )
+                    }),
+                  ],
+                  2
+                ),
+              ]),
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group row mb-3" }, [
+              _c(
+                "label",
+                {
+                  staticClass: "col-md-4 col-form-label text-md-end",
+                  attrs: { for: "department" },
+                },
+                [_vm._v("Department")]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-6" }, [
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.department_id,
+                        expression: "form.department_id",
+                      },
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      name: "department",
+                      "aria-label": "Default select example",
+                    },
+                    on: {
+                      change: function ($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function (o) {
+                            return o.selected
+                          })
+                          .map(function (o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.$set(
+                          _vm.form,
+                          "department_id",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
+                      },
+                    },
+                  },
+                  [
+                    _c("option", { attrs: { selected: "", disabled: "" } }, [
+                      _vm._v("Select Department"),
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(_vm.departments, function (department) {
+                      return _c(
+                        "option",
+                        {
+                          key: department.id,
+                          domProps: { value: department.id },
+                        },
+                        [_vm._v(_vm._s(department.name))]
+                      )
+                    }),
+                  ],
+                  2
+                ),
+              ]),
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group row mb-3" }, [
+              _c(
+                "label",
+                {
+                  staticClass: "col-md-4 col-form-label text-md-end",
+                  attrs: { for: "city" },
+                },
+                [_vm._v("City")]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-6" }, [
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.city_id,
+                        expression: "form.city_id",
+                      },
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      name: "city",
+                      "aria-label": "Default select example",
+                    },
+                    on: {
+                      change: function ($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function (o) {
+                            return o.selected
+                          })
+                          .map(function (o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.$set(
+                          _vm.form,
+                          "city_id",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
+                      },
+                    },
+                  },
+                  [
+                    _c("option", { attrs: { selected: "", disabled: "" } }, [
+                      _vm._v("Select State"),
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(_vm.cities, function (city) {
+                      return _c(
+                        "option",
+                        { key: city.id, domProps: { value: city.id } },
+                        [_vm._v(_vm._s(city.name))]
+                      )
+                    }),
+                  ],
+                  2
+                ),
+              ]),
+            ]),
+            _vm._v(" "),
             _vm._m(6),
             _vm._v(" "),
             _vm._m(7),
-            _vm._v(" "),
-            _vm._m(8),
-            _vm._v(" "),
-            _vm._m(9),
-            _vm._v(" "),
-            _vm._m(10),
           ]),
         ]),
       ]),
@@ -28810,7 +29096,7 @@ var staticRenderFns = [
           staticClass: "col-md-4 col-form-label text-md-end",
           attrs: { for: "first_name" },
         },
-        [_vm._v(" First Name")]
+        [_vm._v("First Name")]
       ),
       _vm._v(" "),
       _c("div", { staticClass: "col-md-6" }, [
@@ -28837,7 +29123,7 @@ var staticRenderFns = [
           staticClass: "col-md-4 col-form-label text-md-end",
           attrs: { for: "last_name" },
         },
-        [_vm._v(" Last Name")]
+        [_vm._v("Last Name")]
       ),
       _vm._v(" "),
       _c("div", { staticClass: "col-md-6" }, [
@@ -28864,7 +29150,7 @@ var staticRenderFns = [
           staticClass: "col-md-4 col-form-label text-md-end",
           attrs: { for: "middle_name" },
         },
-        [_vm._v(" Middle Name")]
+        [_vm._v("Middle Name")]
       ),
       _vm._v(" "),
       _c("div", { staticClass: "col-md-6" }, [
@@ -28933,99 +29219,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group row mb-3" }, [
-      _c(
-        "label",
-        {
-          staticClass: "col-md-4 col-form-label text-md-end",
-          attrs: { for: "state" },
-        },
-        [_vm._v("State")]
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-6" }, [
-        _c(
-          "select",
-          {
-            staticClass: "form-control",
-            attrs: { name: "state", "aria-label": "Default select example" },
-          },
-          [
-            _c("option", { attrs: { selected: "", disabled: "" } }, [
-              _vm._v(" Select State "),
-            ]),
-          ]
-        ),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group row mb-3" }, [
-      _c(
-        "label",
-        {
-          staticClass: "col-md-4 col-form-label text-md-end",
-          attrs: { for: "department" },
-        },
-        [_vm._v("Department")]
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-6" }, [
-        _c(
-          "select",
-          {
-            staticClass: "form-control",
-            attrs: {
-              name: "department",
-              "aria-label": "Default select example",
-            },
-          },
-          [
-            _c("option", { attrs: { selected: "", disabled: "" } }, [
-              _vm._v(" Select State "),
-            ]),
-          ]
-        ),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group row mb-3" }, [
-      _c(
-        "label",
-        {
-          staticClass: "col-md-4 col-form-label text-md-end",
-          attrs: { for: "city" },
-        },
-        [_vm._v("City")]
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-6" }, [
-        _c(
-          "select",
-          {
-            staticClass: "form-control",
-            attrs: { name: "city", "aria-label": "Default select example" },
-          },
-          [
-            _c("option", { attrs: { selected: "", disabled: "" } }, [
-              _vm._v(" Select State "),
-            ]),
-          ]
-        ),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "row mb-3" }, [
       _c(
         "label",
@@ -29058,11 +29251,7 @@ var staticRenderFns = [
         _c(
           "button",
           { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-          [
-            _vm._v(
-              "\n                              Store Employee\n                          "
-            ),
-          ]
+          [_vm._v("Store Employee")]
         ),
       ]),
     ])
