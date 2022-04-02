@@ -20,7 +20,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('employees/store', [EmployeeController::class, 'store'] );
+Route::post('/employees/store', [EmployeeController::class, 'store'] );
+Route::get('/employees/index', [EmployeeController::class, 'index'] );
 
 Route::get('/employees/countries', [EmployeeDataController::class, 'countries']);
 Route::get('/employees/{country}/states', [EmployeeDataController::class, 'states']);

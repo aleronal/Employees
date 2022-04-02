@@ -6,7 +6,7 @@ window.Vue = require('vue').default;
 
 Vue.use(VueRouter);
 
-Vue.component('employees-index', require('./components/employees/Index.vue').default);
+// Vue.component('employees-Index', require('./components/employees/Index.vue').default);
 
 const router = new VueRouter({
     mode:'history',

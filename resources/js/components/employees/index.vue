@@ -39,31 +39,32 @@
             <div class="card-body">
                 <table class="table">
                     <thead>
-                    <tr>
-                        <th scope="col">#Id</th>
-                        <th scope="col">First Name</th>
-                        <th scope="col">Last Name</th>
-                        <th scope="col">Addres</th>
-                        <th scope="col">Deparment</th>
+                      <tr>
+                          <th scope="col">#Id</th>
+                          <th scope="col">First Name</th>
+                          <th scope="col">Last Name</th>
+                          <th scope="col">Address</th>
+                          <th scope="col">Deparment</th>
 
-                        <th scope="col">Manage</th>
-                    </tr>
+                          <th scope="col">Manage</th>
+                      </tr>
                     </thead>
                     <tbody>
                        
-                    <tr>
-                    <th scope="row"></th>
-                            <td>
-
-                            </td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            
-                            <td>
-                                <a href="btn btn-succes btn-sm">Edit</a>
-                            </td>   
-                    </tr>
+                 
+                    <tr v-for="employee in employees" :key="employee.id">
+                      <th scope="row">{{employee.id}}</th>
+                              <td>{{employee.first_name}}</td>
+                              <td>{{employee.last_name}}</td>
+                              <td>{{employee.address}}</td>
+                              <td>{{employee.department_id}}</td>
+                              
+                              <td>
+                                <router-link :to="{name:'EmployeesEdit' , params: {id: employee.id}}">Edit</router-link>
+                                  
+                              </td>   
+                      </tr>
+                    
                     
                     </tbody>
                 </table>
@@ -75,7 +76,31 @@
 
 <script>
 export default {
+  data() {
+    return {
+      employees: []
+    }
+  },
 
+  created() {
+    this.getUsers();
+  },
+
+    methods: {
+      getUsers() {
+        axios
+        .get('/api/employees/index')
+        .then(res => {
+          this.employees = res.data.data;
+          console.log(res.data.data)
+          
+        })
+        .catch(err => {
+          console.log(err);
+        });
+
+      }
+    },
 }
 </script>
 

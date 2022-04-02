@@ -5598,7 +5598,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({});
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      employees: []
+    };
+  },
+  created: function created() {
+    this.getUsers();
+  },
+  methods: {
+    getUsers: function getUsers() {
+      var _this = this;
+
+      axios.get('/api/employees/index').then(function (res) {
+        _this.employees = res.data.data;
+        console.log(res.data.data);
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    }
+  }
+});
 
 /***/ }),
 
@@ -5617,8 +5639,8 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
 window.Vue = (__webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js")["default"]);
-Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
-Vue.component('employees-index', (__webpack_require__(/*! ./components/employees/Index.vue */ "./resources/js/components/employees/Index.vue")["default"]));
+Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]); // Vue.component('employees-Index', require('./components/employees/Index.vue').default);
+
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   mode: 'history',
   routes: _routes__WEBPACK_IMPORTED_MODULE_0__.routes
@@ -50866,7 +50888,50 @@ var render = function () {
           ]),
         ]),
         _vm._v(" "),
-        _vm._m(3),
+        _c("div", { staticClass: "card-body" }, [
+          _c("table", { staticClass: "table" }, [
+            _vm._m(3),
+            _vm._v(" "),
+            _c(
+              "tbody",
+              _vm._l(_vm.employees, function (employee) {
+                return _c("tr", { key: employee.id }, [
+                  _c("th", { attrs: { scope: "row" } }, [
+                    _vm._v(_vm._s(employee.id)),
+                  ]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(employee.first_name))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(employee.last_name))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(employee.address))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(employee.department_id))]),
+                  _vm._v(" "),
+                  _c(
+                    "td",
+                    [
+                      _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "EmployeesEdit",
+                              params: { id: employee.id },
+                            },
+                          },
+                        },
+                        [_vm._v("Edit")]
+                      ),
+                    ],
+                    1
+                  ),
+                ])
+              }),
+              0
+            ),
+          ]),
+        ]),
       ]),
     ]),
   ])
@@ -50935,43 +51000,19 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-body" }, [
-      _c("table", { staticClass: "table" }, [
-        _c("thead", [
-          _c("tr", [
-            _c("th", { attrs: { scope: "col" } }, [_vm._v("#Id")]),
-            _vm._v(" "),
-            _c("th", { attrs: { scope: "col" } }, [_vm._v("First Name")]),
-            _vm._v(" "),
-            _c("th", { attrs: { scope: "col" } }, [_vm._v("Last Name")]),
-            _vm._v(" "),
-            _c("th", { attrs: { scope: "col" } }, [_vm._v("Addres")]),
-            _vm._v(" "),
-            _c("th", { attrs: { scope: "col" } }, [_vm._v("Deparment")]),
-            _vm._v(" "),
-            _c("th", { attrs: { scope: "col" } }, [_vm._v("Manage")]),
-          ]),
-        ]),
+    return _c("thead", [
+      _c("tr", [
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("#Id")]),
         _vm._v(" "),
-        _c("tbody", [
-          _c("tr", [
-            _c("th", { attrs: { scope: "row" } }),
-            _vm._v(" "),
-            _c("td"),
-            _vm._v(" "),
-            _c("td"),
-            _vm._v(" "),
-            _c("td"),
-            _vm._v(" "),
-            _c("td"),
-            _vm._v(" "),
-            _c("td", [
-              _c("a", { attrs: { href: "btn btn-succes btn-sm" } }, [
-                _vm._v("Edit"),
-              ]),
-            ]),
-          ]),
-        ]),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("First Name")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Last Name")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Address")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Deparment")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Manage")]),
       ]),
     ])
   },
