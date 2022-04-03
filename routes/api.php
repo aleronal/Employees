@@ -20,12 +20,15 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/employees/store', [EmployeeController::class, 'store'] );
-Route::get('/employees/index', [EmployeeController::class, 'index'] );
-Route::delete('/employees/delete/{employee}', [EmployeeController::class, 'destroy'] );
+// Route::post('/employees/store', [EmployeeController::class, 'store'] );
+// Route::get('/employees/index', [EmployeeController::class, 'index'] );
+// Route::get('/employees/{single}', [EmployeeController::class, 'show'] );
+// Route::delete('/employees/delete/{employee}', [EmployeeController::class, 'destroy'] );
+
+Route::apiResource('employees', EmployeeController::class);
+
  
-Route::get('/employees/countries', [EmployeeDataController::class, 'countries']);
+Route::get('/countries', [EmployeeDataController::class, 'countries']);
 Route::get('/employees/{country}/states', [EmployeeDataController::class, 'states']);
 Route::get('/employees/{state}/cities', [EmployeeDataController::class, 'cities']);
-Route::get('/employees/departments', [EmployeeDataController::class, 'departments']);
-
+Route::get('/departments', [EmployeeDataController::class, 'departments']);

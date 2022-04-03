@@ -10,7 +10,7 @@ use App\Models\Department;
 
 class EmployeeDataController extends Controller
 {
-    public function countries ()
+    public function countries()
     {
         $countries =  Country::all();
 

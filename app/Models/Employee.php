@@ -16,4 +16,21 @@ class Employee extends Model
     {
        return $this->belongsTo(Department::class);     
     }
+
+    public function country()
+    {
+       return $this->belongsTo(Country::class);     
+    }
+
+    public function state()
+    {
+       return $this->belongsTo(State::class);     
+    }
+
+    public function city()
+    {
+       return $this->belongsTo(City::class);     
+    }
+
+    
 }

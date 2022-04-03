@@ -184,7 +184,7 @@ export default {
   methods: {
     getCountries() {
       axios
-        .get("/api/employees/countries")
+        .get("/api/countries")
         .then(res => {
           this.countries = res.data;
         })
@@ -214,7 +214,7 @@ export default {
     },
     getdepartments() {
       axios
-        .get("/api/employees/departments")
+        .get("/api/departments")
         .then(res => {
           this.departments = res.data;
         })
@@ -223,7 +223,7 @@ export default {
         });
     },
     storeEmployee() {
-        axios.post("/api/employees/store", {
+        axios.post("/api/employees", {
             'first_name' : this.form.first_name,
             'last_name' : this.form.last_name,
             'middle_name' : this.form.middle_name,
@@ -236,7 +236,7 @@ export default {
             'birthdate' : this.format_date(this.form.birth_date),
             'date_hired' : this.format_date(this.form.date_hired),
         }).then(res => {
-            this.$router.push({name:'EmployeesIndex'});
+            this.$router.push({name:'EmployeesIndex'}); 
             console.log(res);
         })
     },

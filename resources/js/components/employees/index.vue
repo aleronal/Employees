@@ -6,8 +6,8 @@
 
     <div class="row">
       <div class="card mx-auto">
-        <div>
-          <div class="alert alert-success"></div>
+        <div v-if="showMessage">
+          <div class="alert alert-success">{{message}}</div>
         </div>
 
         <div class="card-header">
@@ -74,18 +74,20 @@
 export default {
   data() {
     return {
-      employees: []
+      employees: [],
+      showMessage: false,
+      message:''
     };
   },
 
   created() {
-    this.getUsers();
+    this.getEmployees();
   },
 
   methods: {
-    getUsers() {
+    getEmployees() {
       axios
-        .get("/api/employees/index")
+        .get("/api/employees")
         .then(res => {
           this.employees = res.data.data;
           console.log(res.data.data);
@@ -95,9 +97,11 @@ export default {
         });
     },
     deleteEmployee(id){
-      axios.delete('/api/employees/delete/' + id)
+      axios.delete('/api/employees/' + id)
       .then(res => {
-        this.$router.go();
+        this.getEmployees();
+        this.message = res.data
+        this.showMessage = true;
         console.log(res);
        })
     }
