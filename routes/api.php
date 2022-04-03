@@ -22,7 +22,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/employees/store', [EmployeeController::class, 'store'] );
 Route::get('/employees/index', [EmployeeController::class, 'index'] );
-
+Route::delete('/employees/delete/{employee}', [EmployeeController::class, 'destroy'] );
+ 
 Route::get('/employees/countries', [EmployeeDataController::class, 'countries']);
 Route::get('/employees/{country}/states', [EmployeeDataController::class, 'states']);
 Route::get('/employees/{state}/cities', [EmployeeDataController::class, 'cities']);

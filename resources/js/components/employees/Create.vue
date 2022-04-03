@@ -236,6 +236,7 @@ export default {
             'birthdate' : this.format_date(this.form.birth_date),
             'date_hired' : this.format_date(this.form.date_hired),
         }).then(res => {
+            this.$router.push({name:'EmployeesIndex'});
             console.log(res);
         })
     },
