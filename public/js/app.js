@@ -5879,16 +5879,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       employees: [],
       showMessage: false,
-      message: ''
+      message: "",
+      search: null,
+      selectedDepartment: null,
+      departments: []
     };
   },
   created: function created() {
-    this.getEmployees();
+    this.getEmployees(), this.getDepartments();
   },
   methods: {
     getEmployees: function getEmployees() {
@@ -5904,12 +5917,22 @@ __webpack_require__.r(__webpack_exports__);
     deleteEmployee: function deleteEmployee(id) {
       var _this2 = this;
 
-      axios["delete"]('/api/employees/' + id).then(function (res) {
+      axios["delete"]("/api/employees/" + id).then(function (res) {
         _this2.getEmployees();
 
         _this2.message = res.data;
         _this2.showMessage = true;
         console.log(res);
+      });
+    },
+    getDepartments: function getDepartments() {
+      var _this3 = this;
+
+      axios.get("/api/departments").then(function (res) {
+        _this3.departments = res.data;
+        console.log(res.data);
+      })["catch"](function (err) {
+        console.log(err);
       });
     }
   }
@@ -51906,7 +51929,101 @@ var render = function () {
         _vm._v(" "),
         _c("div", { staticClass: "card-header" }, [
           _c("div", { staticClass: "row" }, [
-            _vm._m(1),
+            _c("div", { staticClass: "col" }, [
+              _c("form", [
+                _c("div", { staticClass: "form-row align-items-center" }, [
+                  _c("div", { staticClass: "col-auto" }, [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "sr-only",
+                        attrs: { for: "inlineFormInput" },
+                      },
+                      [_vm._v("Name")]
+                    ),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.search,
+                          expression: "search",
+                        },
+                      ],
+                      staticClass: "form-control mb-2",
+                      attrs: { type: "search", placeholder: "Jane Doe" },
+                      domProps: { value: _vm.search },
+                      on: {
+                        input: function ($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.search = $event.target.value
+                        },
+                      },
+                    }),
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col" }, [
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.departments,
+                            expression: "departments",
+                          },
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          name: "departments",
+                          "aria-label": "Default select example",
+                        },
+                        on: {
+                          change: function ($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function (o) {
+                                return o.selected
+                              })
+                              .map(function (o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.departments = $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          },
+                        },
+                      },
+                      [
+                        _c(
+                          "option",
+                          { attrs: { selected: "", disabled: "" } },
+                          [_vm._v("Select State")]
+                        ),
+                        _vm._v(" "),
+                        _vm._l(_vm.departments, function (department) {
+                          return _c(
+                            "option",
+                            {
+                              key: department.id,
+                              domProps: { value: department.id },
+                            },
+                            [_vm._v(_vm._s(department.name))]
+                          )
+                        }),
+                      ],
+                      2
+                    ),
+                  ]),
+                ]),
+              ]),
+            ]),
             _vm._v(" "),
             _c(
               "div",
@@ -52005,39 +52122,12 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col" }, [
-      _c("form", [
-        _c("div", { staticClass: "form-row align-items-center" }, [
-          _c("div", { staticClass: "col-auto" }, [
-            _c(
-              "label",
-              { staticClass: "sr-only", attrs: { for: "inlineFormInput" } },
-              [_vm._v("Name")]
-            ),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "form-control mb-2",
-              attrs: {
-                type: "search",
-                name: "search",
-                id: "inlineFormInput",
-                placeholder: "Jane Doe",
-              },
-            }),
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-auto" }, [
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-primary mb-2",
-                attrs: { type: "submit" },
-              },
-              [_vm._v("Search")]
-            ),
-          ]),
-        ]),
-      ]),
+    return _c("div", { staticClass: "col-auto" }, [
+      _c(
+        "button",
+        { staticClass: "btn btn-primary mb-2", attrs: { type: "submit" } },
+        [_vm._v("Search")]
+      ),
     ])
   },
   function () {

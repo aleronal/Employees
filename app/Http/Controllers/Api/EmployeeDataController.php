@@ -29,9 +29,9 @@ class EmployeeDataController extends Controller
 
     public function departments()
     {
-        $deparments = Department::all();
+        $departments = Department::all();
 
-        return response()->json($deparments);
+        return response()->json($departments);
     }
 
    

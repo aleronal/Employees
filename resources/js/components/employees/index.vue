@@ -19,14 +19,24 @@
                     <label class="sr-only" for="inlineFormInput">Name</label>
                     <input
                       type="search"
-                      name="search"
+                      v-model="search"
                       class="form-control mb-2"
-                      id="inlineFormInput"
                       placeholder="Jane Doe"
                     />
                   </div>
                   <div class="col-auto">
                     <button type="submit" class="btn btn-primary mb-2">Search</button>
+                </div>
+                  <div class="col">
+                    <select
+                      name="departments"
+                      v-model="departments"
+                      class="form-control"
+                      aria-label="Default select example"
+                    >
+                      <option selected disabled>Select State</option>
+                      <option :value="department.id" v-for="department in departments" :key="department.id">{{department.name}}</option>
+                    </select>
                   </div>
                 </div>
               </form>
@@ -76,12 +86,16 @@ export default {
     return {
       employees: [],
       showMessage: false,
-      message:''
+      message: "",
+      search: null,
+      selectedDepartment: null,
+      departments: []
     };
   },
 
   created() {
-    this.getEmployees();
+    this.getEmployees(),
+    this.getDepartments()
   },
 
   methods: {
@@ -96,15 +110,25 @@ export default {
           console.log(err);
         });
     },
-    deleteEmployee(id){
-      axios.delete('/api/employees/' + id)
-      .then(res => {
+    deleteEmployee(id) {
+      axios.delete("/api/employees/" + id).then(res => {
         this.getEmployees();
-        this.message = res.data
+        this.message = res.data;
         this.showMessage = true;
         console.log(res);
-       })
-    }
+      });
+    },
+     getDepartments() {
+      axios
+        .get("/api/departments")
+        .then(res => {
+          this.departments = res.data;
+          console.log(res.data)
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
   }
 };
 </script>
