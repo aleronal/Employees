@@ -5889,6 +5889,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -5900,6 +5908,14 @@ __webpack_require__.r(__webpack_exports__);
       departments: []
     };
   },
+  watch: {
+    search: function search() {
+      this.getEmployees();
+    },
+    selectedDepartment: function selectedDepartment() {
+      this.getEmployees();
+    }
+  },
   created: function created() {
     this.getEmployees(), this.getDepartments();
   },
@@ -5907,7 +5923,12 @@ __webpack_require__.r(__webpack_exports__);
     getEmployees: function getEmployees() {
       var _this = this;
 
-      axios.get("/api/employees").then(function (res) {
+      axios.get("/api/employees", {
+        params: {
+          search: this.search,
+          department_id: this.selectedDepartment
+        }
+      }).then(function (res) {
         _this.employees = res.data.data;
         console.log(res.data.data);
       })["catch"](function (err) {
@@ -51946,19 +51967,17 @@ var render = function () {
                       directives: [
                         {
                           name: "model",
-                          rawName: "v-model",
+                          rawName: "v-model.lazy",
                           value: _vm.search,
                           expression: "search",
+                          modifiers: { lazy: true },
                         },
                       ],
                       staticClass: "form-control mb-2",
                       attrs: { type: "search", placeholder: "Jane Doe" },
                       domProps: { value: _vm.search },
                       on: {
-                        input: function ($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
+                        change: function ($event) {
                           _vm.search = $event.target.value
                         },
                       },
@@ -51975,13 +51994,13 @@ var render = function () {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.departments,
-                            expression: "departments",
+                            value: _vm.selectedDepartment,
+                            expression: "selectedDepartment",
                           },
                         ],
                         staticClass: "form-control",
                         attrs: {
-                          name: "departments",
+                          name: "selected_deparment",
                           "aria-label": "Default select example",
                         },
                         on: {
@@ -51994,31 +52013,23 @@ var render = function () {
                                 var val = "_value" in o ? o._value : o.value
                                 return val
                               })
-                            _vm.departments = $event.target.multiple
+                            _vm.selectedDepartment = $event.target.multiple
                               ? $$selectedVal
                               : $$selectedVal[0]
                           },
                         },
                       },
-                      [
-                        _c(
+                      _vm._l(_vm.departments, function (department) {
+                        return _c(
                           "option",
-                          { attrs: { selected: "", disabled: "" } },
-                          [_vm._v("Select State")]
-                        ),
-                        _vm._v(" "),
-                        _vm._l(_vm.departments, function (department) {
-                          return _c(
-                            "option",
-                            {
-                              key: department.id,
-                              domProps: { value: department.id },
-                            },
-                            [_vm._v(_vm._s(department.name))]
-                          )
-                        }),
-                      ],
-                      2
+                          {
+                            key: department.id,
+                            domProps: { value: department.id },
+                          },
+                          [_vm._v(_vm._s(department.name))]
+                        )
+                      }),
+                      0
                     ),
                   ]),
                 ]),
@@ -52122,11 +52133,11 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-auto" }, [
+    return _c("div", { staticClass: "col" }, [
       _c(
         "button",
         { staticClass: "btn btn-primary mb-2", attrs: { type: "submit" } },
-        [_vm._v("Search")]
+        [_vm._v("Search\n                    ")]
       ),
     ])
   },

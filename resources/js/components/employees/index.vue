@@ -19,24 +19,32 @@
                     <label class="sr-only" for="inlineFormInput">Name</label>
                     <input
                       type="search"
-                      v-model="search"
+                      v-model.lazy="search"
                       class="form-control mb-2"
                       placeholder="Jane Doe"
-                    />
+                  />
                   </div>
-                  <div class="col-auto">
-                    <button type="submit" class="btn btn-primary mb-2">Search</button>
-                </div>
+                   <div class="col">
+                      <button
+                        type="submit"
+                        class="btn btn-primary mb-2"
+                        >Search
+                      </button>
+                  </div>
                   <div class="col">
-                    <select
-                      name="departments"
-                      v-model="departments"
-                      class="form-control"
-                      aria-label="Default select example"
-                    >
-                      <option selected disabled>Select State</option>
-                      <option :value="department.id" v-for="department in departments" :key="department.id">{{department.name}}</option>
-                    </select>
+                      <select
+                          v-model="selectedDepartment"
+                          name="selected_deparment"
+                          class="form-control"
+                          aria-label="Default select example"
+                      >
+                          <option
+                              v-for="department in departments"
+                              :key="department.id"
+                              :value="department.id"
+                              >{{ department.name }}</option
+                          >
+                      </select>
                   </div>
                 </div>
               </form>
@@ -93,15 +101,28 @@ export default {
     };
   },
 
+  watch: {
+    search() {
+      this.getEmployees();
+    },
+    selectedDepartment() {
+      this.getEmployees();
+    }
+  },
+
   created() {
-    this.getEmployees(),
-    this.getDepartments()
+    this.getEmployees(), this.getDepartments();
   },
 
   methods: {
     getEmployees() {
       axios
-        .get("/api/employees")
+        .get("/api/employees", {
+          params: {
+            search: this.search,
+            department_id: this.selectedDepartment
+          }
+        })
         .then(res => {
           this.employees = res.data.data;
           console.log(res.data.data);
@@ -118,17 +139,17 @@ export default {
         console.log(res);
       });
     },
-     getDepartments() {
+    getDepartments() {
       axios
         .get("/api/departments")
         .then(res => {
           this.departments = res.data;
-          console.log(res.data)
+          console.log(res.data);
         })
         .catch(err => {
           console.log(err);
         });
-    },
+    }
   }
 };
 </script>
