@@ -114,4 +114,6 @@ class UserController extends Controller
             return redirect()->route('users.index')->with('message', 'user Deleted Successfully');
         }
     }
+
+
 }

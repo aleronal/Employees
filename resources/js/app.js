@@ -6,7 +6,9 @@ window.Vue = require('vue').default;
 
 Vue.use(VueRouter);
 
-// Vue.component('employees-Index', require('./components/employees/Index.vue').default);
+Vue.component('employees-email', require('./components/emails/Emails.vue').default);
+
+
 
 const router = new VueRouter({
     mode:'history',

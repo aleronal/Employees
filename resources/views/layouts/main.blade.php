@@ -73,7 +73,7 @@
                     <span>User Management</span>
                 </a>
                     <a class="collapse-item" href="{{route('users.index')}}">User </a>
-                    <a class="collapse-item" href="cards.html">Role</a>
+                    <a class="collapse-item" href="{{route('users.email')}}">Email</a>
                     <a class="collapse-item" href="cards.html">Permission</a>     
             </li>
 
