@@ -51974,7 +51974,7 @@ var render = function () {
                         },
                       ],
                       staticClass: "form-control mb-2",
-                      attrs: { type: "search", placeholder: "Jane Doe" },
+                      attrs: { type: "search", placeholder: "Search" },
                       domProps: { value: _vm.search },
                       on: {
                         change: function ($event) {

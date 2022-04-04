@@ -21,7 +21,7 @@
                       type="search"
                       v-model.lazy="search"
                       class="form-control mb-2"
-                      placeholder="Jane Doe"
+                      placeholder="Search"
                   />
                   </div>
                    <div class="col">
