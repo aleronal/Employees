@@ -66,7 +66,6 @@ export default {
       axios
         .get("/api/countries")
         .then(res => {
-          console.log(res.data);
           this.countries = res.data;
         })
         .catch(err => {

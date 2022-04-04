@@ -5331,7 +5331,6 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios.get("/api/countries").then(function (res) {
-        console.log(res.data);
         _this.countries = res.data;
       })["catch"](function (err) {
         console.log(err);
