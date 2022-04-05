@@ -37,3 +37,5 @@ Route::get('/departments', [EmployeeDataController::class, 'departments']);
 
 // Mail To Send Weekly Controller
 Route::post('/storemail', [MailToSendWeeklyController::class, 'store']);
+
+Route::get('/send', [MailToSendWeeklyController::class, 'sendMailWeekly']);

@@ -39,6 +39,8 @@
 
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+
+    <button @click="sendEmail">send Email</button>
   </div>
 </template>
 
@@ -89,6 +91,17 @@ export default {
         console.log(err);
       })
 
+    },
+
+    sendEmail(){
+      axios
+      .get('/api/send')
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      })
     }
 
   }

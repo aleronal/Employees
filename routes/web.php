@@ -34,8 +34,8 @@ Route::middleware(['admin','auth'])->group(function () {
     
     Route::resource('users', UserController::class);
   
-    Route::view('/user/email', 'users.email')->name('users.email');
     
+    Route::view('/user/email', 'users.email')->name('users.email');
 });
 
 

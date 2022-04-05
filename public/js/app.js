@@ -5310,6 +5310,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -5344,6 +5346,13 @@ __webpack_require__.r(__webpack_exports__);
         'message': this.form.message,
         'checked': this.form.checked
       }).then(function (res) {
+        console.log(res);
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    sendEmail: function sendEmail() {
+      axios.get('/api/send').then(function (res) {
         console.log(res);
       })["catch"](function (err) {
         console.log(err);
@@ -51045,6 +51054,8 @@ var render = function () {
         ),
       ]
     ),
+    _vm._v(" "),
+    _c("button", { on: { click: _vm.sendEmail } }, [_vm._v("send Email")]),
   ])
 }
 var staticRenderFns = []
