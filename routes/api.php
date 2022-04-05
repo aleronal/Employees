@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\EmployeeController;
 use App\Http\Controllers\Api\EmployeeDataController;
+use App\Http\Controllers\MailToSendWeeklyController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -27,8 +28,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::apiResource('employees', EmployeeController::class);
 
- 
+//  Employee Data Controller for countries, states, cities, departments
 Route::get('/countries', [EmployeeDataController::class, 'countries']);
 Route::get('/employees/{country}/states', [EmployeeDataController::class, 'states']);
 Route::get('/employees/{state}/cities', [EmployeeDataController::class, 'cities']);
 Route::get('/departments', [EmployeeDataController::class, 'departments']);
+
+
+// Mail To Send Weekly Controller
+Route::post('/storemail', [MailToSendWeeklyController::class, 'store']);

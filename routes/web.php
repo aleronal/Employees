@@ -33,12 +33,10 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::middleware(['admin','auth'])->group(function () {
     
     Route::resource('users', UserController::class);
-
-    Route::get('user/email', [UserEmailController::class, 'email'])->name('users.email');
-    
+  
+    Route::view('/user/email', 'users.email')->name('users.email');
     
 });
-
 
 
 Route::post('users/{user}/change-password',[ChangePasswordController::class, 'change_password'])->name('users.change.password');

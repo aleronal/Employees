@@ -1,10 +1,10 @@
 <template>
   <div>
-    <form>
+    <form @submit.prevent="storeMail">
       <div class="form-group">
         <label for="exampleInputEmail1">To Email address</label>
         <input
-          v-model="form.email"
+          v-model="form.to_email"
           type="email"
           class="form-control"
           id="exampleInputEmail1"
@@ -71,7 +71,26 @@ export default {
         .catch(err => {
           console.log(err);
         });
+    },
+  
+    storeMail(){
+      axios
+      .post('/api/storemail', {
+        'to_email' : this.form.to_email,
+        'country' : this.form.country,
+        'title' : this.form.title,
+        'message' : this.form.message,
+        'checked' : this.form.checked
+      })
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      })
+
     }
+
   }
 };
 </script>
