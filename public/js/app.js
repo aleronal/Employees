@@ -5315,6 +5315,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
+      tweets: [],
       countries: [],
       form: {
         to_email: "",
@@ -5326,7 +5327,7 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   created: function created() {
-    this.getCountry();
+    this.getCountry(), this.getTweets();
   },
   methods: {
     getCountry: function getCountry() {
@@ -5339,12 +5340,12 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     storeMail: function storeMail() {
-      axios.post('/api/storemail', {
-        'to_email': this.form.to_email,
-        'country': this.form.country,
-        'title': this.form.title,
-        'message': this.form.message,
-        'checked': this.form.checked
+      axios.post("/api/storemail", {
+        to_email: this.form.to_email,
+        country: this.form.country,
+        title: this.form.title,
+        message: this.form.message,
+        checked: this.form.checked
       }).then(function (res) {
         console.log(res);
       })["catch"](function (err) {
@@ -5352,7 +5353,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     sendEmail: function sendEmail() {
-      axios.get('/api/send').then(function (res) {
+      axios.get("/api/send").then(function (res) {
         console.log(res);
       })["catch"](function (err) {
         console.log(err);

@@ -15,10 +15,8 @@
 
       <div class="form-group">
         <label for="exampleFormControlSelect1">Choose Country</label>
-        <select v-model="form.country" class="form-control" id="exampleFormControlSelect1">  
-            <option v-for="country in countries" :key="country.id">{{country.name}}</option>
-        
-          
+        <select v-model="form.country" class="form-control" id="exampleFormControlSelect1">
+          <option v-for="country in countries" :key="country.id">{{country.name}}</option>
         </select>
       </div>
 
@@ -41,6 +39,8 @@
     </form>
 
     <button @click="sendEmail">send Email</button>
+
+   
   </div>
 </template>
 
@@ -48,6 +48,7 @@
 export default {
   data() {
     return {
+      tweets: [],
       countries: [],
       form: {
         to_email: "",
@@ -60,7 +61,7 @@ export default {
   },
 
   created() {
-    this.getCountry();
+    this.getCountry(), this.getTweets()
   },
 
   methods: {
@@ -74,36 +75,36 @@ export default {
           console.log(err);
         });
     },
-  
-    storeMail(){
-      axios
-      .post('/api/storemail', {
-        'to_email' : this.form.to_email,
-        'country' : this.form.country,
-        'title' : this.form.title,
-        'message' : this.form.message,
-        'checked' : this.form.checked
-      })
-      .then(res => {
-        console.log(res);
-      })
-      .catch(err => {
-        console.log(err);
-      })
 
+    storeMail() {
+      axios
+        .post("/api/storemail", {
+          to_email: this.form.to_email,
+          country: this.form.country,
+          title: this.form.title,
+          message: this.form.message,
+          checked: this.form.checked
+        })
+        .then(res => {
+          console.log(res);
+        })
+        .catch(err => {
+          console.log(err);
+        });
     },
 
-    sendEmail(){
+    sendEmail() {
       axios
-      .get('/api/send')
-      .then(res => {
-        console.log(res);
-      })
-      .catch(err => {
-        console.log(err);
-      })
-    }
+        .get("/api/send")
+        .then(res => {
+          console.log(res);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
 
+    
   }
 };
 </script>
