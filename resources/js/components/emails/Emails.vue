@@ -40,7 +40,17 @@
 
     <button @click="sendEmail">send Email</button>
 
-   
+    <div v-for="tweet in tweets" :key="tweet.id">
+      <div class="card" style="width: 10rem;">
+        <div class="card-body">
+          <h5 class="card-title">{{tweet.id}}</h5>
+          <p
+            class="card-text"
+          >{{tweet.text}}</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -61,10 +71,22 @@ export default {
   },
 
   created() {
-    this.getCountry(), this.getTweets()
+    this.getCountry(), this.getTweets();
   },
 
   methods: {
+    getTweets() {
+      axios
+        .get("/api/tweets")
+        .then(res => {
+          this.tweets = res.data.data;
+          console.log(res.data.data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+
     getCountry() {
       axios
         .get("/api/countries")
@@ -102,9 +124,7 @@ export default {
         .catch(err => {
           console.log(err);
         });
-    },
-
-    
+    }
   }
 };
 </script>

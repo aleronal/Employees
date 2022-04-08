@@ -5312,6 +5312,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -5330,11 +5340,21 @@ __webpack_require__.r(__webpack_exports__);
     this.getCountry(), this.getTweets();
   },
   methods: {
-    getCountry: function getCountry() {
+    getTweets: function getTweets() {
       var _this = this;
 
+      axios.get("/api/tweets").then(function (res) {
+        _this.tweets = res.data.data;
+        console.log(res.data.data);
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    getCountry: function getCountry() {
+      var _this2 = this;
+
       axios.get("/api/countries").then(function (res) {
-        _this.countries = res.data;
+        _this2.countries = res.data;
       })["catch"](function (err) {
         console.log(err);
       });
@@ -50850,214 +50870,241 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c(
-      "form",
-      {
-        on: {
-          submit: function ($event) {
-            $event.preventDefault()
-            return _vm.storeMail.apply(null, arguments)
+  return _c(
+    "div",
+    [
+      _c(
+        "form",
+        {
+          on: {
+            submit: function ($event) {
+              $event.preventDefault()
+              return _vm.storeMail.apply(null, arguments)
+            },
           },
         },
-      },
-      [
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", { attrs: { for: "exampleInputEmail1" } }, [
-            _vm._v("To Email address"),
-          ]),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.form.to_email,
-                expression: "form.to_email",
-              },
-            ],
-            staticClass: "form-control",
-            attrs: {
-              type: "email",
-              id: "exampleInputEmail1",
-              "aria-describedby": "emailHelp",
-              placeholder: "Enter email",
-            },
-            domProps: { value: _vm.form.to_email },
-            on: {
-              input: function ($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.form, "to_email", $event.target.value)
-              },
-            },
-          }),
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", { attrs: { for: "exampleFormControlSelect1" } }, [
-            _vm._v("Choose Country"),
-          ]),
-          _vm._v(" "),
-          _c(
-            "select",
-            {
+        [
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { attrs: { for: "exampleInputEmail1" } }, [
+              _vm._v("To Email address"),
+            ]),
+            _vm._v(" "),
+            _c("input", {
               directives: [
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.form.country,
-                  expression: "form.country",
+                  value: _vm.form.to_email,
+                  expression: "form.to_email",
                 },
               ],
               staticClass: "form-control",
-              attrs: { id: "exampleFormControlSelect1" },
+              attrs: {
+                type: "email",
+                id: "exampleInputEmail1",
+                "aria-describedby": "emailHelp",
+                placeholder: "Enter email",
+              },
+              domProps: { value: _vm.form.to_email },
               on: {
-                change: function ($event) {
-                  var $$selectedVal = Array.prototype.filter
-                    .call($event.target.options, function (o) {
-                      return o.selected
-                    })
-                    .map(function (o) {
-                      var val = "_value" in o ? o._value : o.value
-                      return val
-                    })
-                  _vm.$set(
-                    _vm.form,
-                    "country",
-                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-                  )
+                input: function ($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.form, "to_email", $event.target.value)
                 },
               },
-            },
-            _vm._l(_vm.countries, function (country) {
-              return _c("option", { key: country.id }, [
-                _vm._v(_vm._s(country.name)),
-              ])
             }),
-            0
-          ),
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", { attrs: { for: "title" } }, [
-            _vm._v("This will be the Tittle of the message"),
           ]),
           _vm._v(" "),
-          _c("input", {
-            directives: [
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { attrs: { for: "exampleFormControlSelect1" } }, [
+              _vm._v("Choose Country"),
+            ]),
+            _vm._v(" "),
+            _c(
+              "select",
               {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.form.title,
-                expression: "form.title",
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.form.country,
+                    expression: "form.country",
+                  },
+                ],
+                staticClass: "form-control",
+                attrs: { id: "exampleFormControlSelect1" },
+                on: {
+                  change: function ($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function (o) {
+                        return o.selected
+                      })
+                      .map(function (o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.$set(
+                      _vm.form,
+                      "country",
+                      $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                    )
+                  },
+                },
               },
-            ],
-            staticClass: "form-control",
-            attrs: { type: "text", id: "title", placeholder: "Title" },
-            domProps: { value: _vm.form.title },
-            on: {
-              input: function ($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.form, "title", $event.target.value)
-              },
-            },
-          }),
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", { attrs: { for: "message" } }, [
-            _vm._v("This will be the Message"),
+              _vm._l(_vm.countries, function (country) {
+                return _c("option", { key: country.id }, [
+                  _vm._v(_vm._s(country.name)),
+                ])
+              }),
+              0
+            ),
           ]),
           _vm._v(" "),
-          _c("textarea", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.form.message,
-                expression: "form.message",
-              },
-            ],
-            staticClass: "form-control",
-            attrs: { id: "message", rows: "3" },
-            domProps: { value: _vm.form.message },
-            on: {
-              input: function ($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.form, "message", $event.target.value)
-              },
-            },
-          }),
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-check" }, [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.form.checked,
-                expression: "form.checked",
-              },
-            ],
-            staticClass: "form-check-input",
-            attrs: { type: "checkbox", id: "exampleCheck1" },
-            domProps: {
-              checked: Array.isArray(_vm.form.checked)
-                ? _vm._i(_vm.form.checked, null) > -1
-                : _vm.form.checked,
-            },
-            on: {
-              change: function ($event) {
-                var $$a = _vm.form.checked,
-                  $$el = $event.target,
-                  $$c = $$el.checked ? true : false
-                if (Array.isArray($$a)) {
-                  var $$v = null,
-                    $$i = _vm._i($$a, $$v)
-                  if ($$el.checked) {
-                    $$i < 0 && _vm.$set(_vm.form, "checked", $$a.concat([$$v]))
-                  } else {
-                    $$i > -1 &&
-                      _vm.$set(
-                        _vm.form,
-                        "checked",
-                        $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                      )
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { attrs: { for: "title" } }, [
+              _vm._v("This will be the Tittle of the message"),
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.form.title,
+                  expression: "form.title",
+                },
+              ],
+              staticClass: "form-control",
+              attrs: { type: "text", id: "title", placeholder: "Title" },
+              domProps: { value: _vm.form.title },
+              on: {
+                input: function ($event) {
+                  if ($event.target.composing) {
+                    return
                   }
-                } else {
-                  _vm.$set(_vm.form, "checked", $$c)
-                }
+                  _vm.$set(_vm.form, "title", $event.target.value)
+                },
               },
-            },
-          }),
+            }),
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { attrs: { for: "message" } }, [
+              _vm._v("This will be the Message"),
+            ]),
+            _vm._v(" "),
+            _c("textarea", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.form.message,
+                  expression: "form.message",
+                },
+              ],
+              staticClass: "form-control",
+              attrs: { id: "message", rows: "3" },
+              domProps: { value: _vm.form.message },
+              on: {
+                input: function ($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.form, "message", $event.target.value)
+                },
+              },
+            }),
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-check" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.form.checked,
+                  expression: "form.checked",
+                },
+              ],
+              staticClass: "form-check-input",
+              attrs: { type: "checkbox", id: "exampleCheck1" },
+              domProps: {
+                checked: Array.isArray(_vm.form.checked)
+                  ? _vm._i(_vm.form.checked, null) > -1
+                  : _vm.form.checked,
+              },
+              on: {
+                change: function ($event) {
+                  var $$a = _vm.form.checked,
+                    $$el = $event.target,
+                    $$c = $$el.checked ? true : false
+                  if (Array.isArray($$a)) {
+                    var $$v = null,
+                      $$i = _vm._i($$a, $$v)
+                    if ($$el.checked) {
+                      $$i < 0 &&
+                        _vm.$set(_vm.form, "checked", $$a.concat([$$v]))
+                    } else {
+                      $$i > -1 &&
+                        _vm.$set(
+                          _vm.form,
+                          "checked",
+                          $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                        )
+                    }
+                  } else {
+                    _vm.$set(_vm.form, "checked", $$c)
+                  }
+                },
+              },
+            }),
+            _vm._v(" "),
+            _c(
+              "label",
+              {
+                staticClass: "form-check-label",
+                attrs: { for: "exampleCheck1" },
+              },
+              [_vm._v("Check me out")]
+            ),
+          ]),
           _vm._v(" "),
           _c(
-            "label",
-            {
-              staticClass: "form-check-label",
-              attrs: { for: "exampleCheck1" },
-            },
-            [_vm._v("Check me out")]
+            "button",
+            { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+            [_vm._v("Submit")]
           ),
-        ]),
-        _vm._v(" "),
-        _c(
-          "button",
-          { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-          [_vm._v("Submit")]
-        ),
-      ]
-    ),
-    _vm._v(" "),
-    _c("button", { on: { click: _vm.sendEmail } }, [_vm._v("send Email")]),
-  ])
+        ]
+      ),
+      _vm._v(" "),
+      _c("button", { on: { click: _vm.sendEmail } }, [_vm._v("send Email")]),
+      _vm._v(" "),
+      _vm._l(_vm.tweets, function (tweet) {
+        return _c("div", { key: tweet.id }, [
+          _c("div", { staticClass: "card", staticStyle: { width: "10rem" } }, [
+            _c("div", { staticClass: "card-body" }, [
+              _c("h5", { staticClass: "card-title" }, [
+                _vm._v(_vm._s(tweet.id)),
+              ]),
+              _vm._v(" "),
+              _c("p", { staticClass: "card-text" }, [
+                _vm._v(_vm._s(tweet.text)),
+              ]),
+              _vm._v(" "),
+              _c(
+                "a",
+                { staticClass: "btn btn-primary", attrs: { href: "#" } },
+                [_vm._v("Go somewhere")]
+              ),
+            ]),
+          ]),
+        ])
+      }),
+    ],
+    2
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

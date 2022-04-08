@@ -10,6 +10,7 @@ use App\Http\Controllers\Backend\CountryController;
 use App\Http\Controllers\Backend\UserEmailController;
 use App\Http\Controllers\Backend\DepartmentController;
 use App\Http\Controllers\Backend\ChangePasswordController;
+use App\Http\Controllers\TwitterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +39,7 @@ Route::middleware(['admin','auth'])->group(function () {
     Route::view('/user/email', 'users.email')->name('users.email');
 });
 
+Route::get('/twitter',[TwitterController::class, 'getTweets'])->name('twitter.tweets');
 
 Route::post('users/{user}/change-password',[ChangePasswordController::class, 'change_password'])->name('users.change.password');
 

@@ -1,10 +1,11 @@
 <?php
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TwitterController;
 use App\Http\Controllers\Api\EmployeeController;
 use App\Http\Controllers\Api\EmployeeDataController;
 use App\Http\Controllers\MailToSendWeeklyController;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,3 +40,5 @@ Route::get('/departments', [EmployeeDataController::class, 'departments']);
 Route::post('/storemail', [MailToSendWeeklyController::class, 'store']);
 
 Route::get('/send', [MailToSendWeeklyController::class, 'sendMailWeekly']);
+
+Route::get('/tweets',[TwitterController::class, 'getTweets']);

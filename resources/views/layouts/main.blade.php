@@ -74,7 +74,7 @@
                 </a>
                     <a class="collapse-item" href="{{route('users.index')}}">User </a>
                     <a class="collapse-item" href="{{route('users.email')}}">Email</a>
-                    <a class="collapse-item" href="cards.html">Permission</a>     
+                    <a class="collapse-item" href="{{route('twitter.tweets')}}">Twitter</a>     
             </li>
 
             <!-- Nav Item - Utilities Collapse Menu -->
