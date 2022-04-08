@@ -15,10 +15,16 @@ class TwitterController extends Controller
             
         ])->get('https://api.twitter.com/2/users/150864706/tweets');
    
+
+        // this is to return to a blade -> 
         $value = json_decode($response, true);
 
         $value = $value['data'];
         
         return view('twitter.tweets', compact('value'));
+
+        // this is to return to a vue component -> 
+
+        // return response()->json();
     }
 }
