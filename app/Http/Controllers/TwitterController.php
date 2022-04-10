@@ -15,14 +15,23 @@ class TwitterController extends Controller
             'Authorization' => env('BEARER_TOKEN'),
             
         ])->get('https://api.twitter.com/2/users/150864706/tweets');
-   
+          
+
+        // Improve of return data array from twitter api (??) 
+
+        foreach(json_decode($response) as $value){
+        
+            return view('twitter.tweets', compact('value'));
+        
+        }
+
 
         // this is to return to a blade -> 
-        $value = json_decode($response, true);
+        // $value = json_decode($response);
 
-        $value = $value['data'];
+        // dd($value);
         
-        return view('twitter.tweets', compact('value'));
+        // return view('twitter.tweets', compact('value'));
 
         // this is to return to a vue component -> 
 
