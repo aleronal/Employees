@@ -47,6 +47,7 @@ class StateController extends Controller
      */
     public function store(StateStoreRequest $request)
     {
+
         State::create($request->validated());
 
         return redirect()->route('state.index')->with('message', 'State Created Succesfully');
