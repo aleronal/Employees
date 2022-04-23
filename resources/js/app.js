@@ -1,10 +1,12 @@
 require('./bootstrap');
 import VueRouter from 'vue-router';
 import { routes } from './routes';
+import VueTabulator from 'vue-tabulator';
 
 window.Vue = require('vue').default;
 
 Vue.use(VueRouter);
+Vue.use(VueTabulator);
 
 Vue.component('employees-email', require('./components/emails/Emails.vue').default);
 
